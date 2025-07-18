@@ -1,6 +1,6 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
-const emergencyNumber = "3125620680"; // Reemplaza con el tuyo
+const emergencyNumber = "3125620680"; // Reemplaza con tu número real
 
 buttons.forEach((btn) => {
   if (btn.dataset.value) {
@@ -15,28 +15,39 @@ document.getElementById("clear").addEventListener("click", () => {
 });
 
 document.getElementById("equal").addEventListener("click", () => {
-  if (display.value === "555") {
+  const value = display.value.trim();
+
+  // Si es el código de alerta
+  if (value === "555") {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-          const message = `¡Emergencia! Ayúdame. Mi ubicación: https://www.google.com/maps?q=${lat},${lon}`;
+          const message = `¡Emergencia! Necesito ayuda. Mi ubicación: https://www.google.com/maps?q=${lat},${lon}`;
           const url = `https://wa.me/${emergencyNumber}?text=${encodeURIComponent(message)}`;
           window.open(url, "_blank");
+
+          // Limpiar el display luego de enviar el mensaje
+          display.value = "";
         },
         () => {
-          alert("No se pudo obtener la ubicación.");
+          alert("No se pudo obtener tu ubicación.");
         }
       );
     } else {
-      alert("Geolocalización no soportada.");
+      alert("Tu navegador no soporta geolocalización.");
     }
-  } else {
-    try {
-      display.value = eval(display.value);
-    } catch {
-      alert("Error de cálculo");
-    }
+
+    return; // 🚫 Detenemos aquí, no seguimos al eval
+  }
+
+  // Si no es el código de alerta, evaluamos la operación
+  try {
+    const result = eval(value);
+    display.value = result;
+  } catch {
+    alert("Error de cálculo");
+    display.value = "";
   }
 });
