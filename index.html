@@ -2,19 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora Alerta</title>
   <link rel="stylesheet" href="./css/style.css" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png" />
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker registrado"));
+    }
+  </script>
 </head>
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("service-worker.js")
-      .then(() => console.log("Service Worker registrado"));
-  }
-</script>
-
 <body>
   <div class="calculator">
     <input type="text" id="display" disabled />
@@ -36,10 +35,10 @@
 
       <button class="btn" data-value="0">0</button>
       <button class="btn" data-value=".">.</button>
-      <button class="btn" id="clear">C</button>
+      <button class="btn" id="equal">=</button>
       <button class="btn" data-value="+">+</button>
 
-      <button class="btn equal" id="equals">=</button>
+      <button class="btn clear" id="clear">C</button>
     </div>
   </div>
 
