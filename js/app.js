@@ -1,6 +1,6 @@
 const display = document.getElementById("display");
 const buttons = document.querySelectorAll(".btn");
-const emergencyNumber = "573125620680"; // Reemplaza con el tuyo
+const emergencyNumber = "3125620680"; // Reemplaza con el tuyo
 
 buttons.forEach((btn) => {
   if (btn.dataset.value) {
